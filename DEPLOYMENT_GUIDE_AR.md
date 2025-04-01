@@ -121,6 +121,39 @@
    ./build-render.sh
    ```
 
+### حل مشكلة فقدان الألوان الخضراء في Render
+إذا لاحظت أن الألوان الخضراء المستخدمة في النظام تظهر على Replit ولكنها مفقودة على Render، فهذا يرجع إلى مشكلة في معالجة ملف theme.json:
+
+1. تأكد من أن ملفات التكوين (`vite.config.js` و `vite.config.cjs`) تحتوي على إضافة `@replit/vite-plugin-shadcn-theme-json`:
+   ```javascript
+   // في vite.config.js
+   import themePlugin from "@replit/vite-plugin-shadcn-theme-json";
+   
+   // في plugins:
+   plugins: [
+     react(),
+     themePlugin()
+   ]
+   
+   // في vite.config.cjs
+   const themePlugin = require("@replit/vite-plugin-shadcn-theme-json").default;
+   
+   // في plugins:
+   plugins: [
+     require('@vitejs/plugin-react')(),
+     themePlugin()
+   ]
+   ```
+
+2. تأكد من أن ملف `build-render.sh` ينسخ ملف theme.json إلى مجلد التوزيع:
+   ```bash
+   # نسخ ملف theme.json للتأكد من أن الألوان ستظهر بشكل صحيح
+   cp theme.json dist/
+   cp theme.json dist/server/
+   ```
+
+3. إذا كنت لا ترى الألوان بعد التحديث، جرب إعادة بناء التطبيق من لوحة تحكم Render عن طريق النقر على زر "Manual Deploy" واختيار "Clear build cache & deploy".
+
 ## ملاحظات هامة
 - تأكد من تغيير كلمة مرور المستخدم الافتراضي (admin) بعد أول تسجيل دخول
 - للتعديل على التطبيق، قم بتحديث الكود في مستودع GitHub وسيقوم Render تلقائياً بإعادة بناء ونشر التطبيق
