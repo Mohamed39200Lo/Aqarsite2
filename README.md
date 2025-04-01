@@ -31,7 +31,7 @@ A comprehensive real estate website for Saudi properties with admin dashboard an
    - اختر مستودع GitHub الخاص بك
    - أدخل اسم للخدمة: `aldar-real-estate`
    - تأكد من أن البيئة هي: `Node`
-   - أمر البناء: `npm install && npm run build`
+   - أمر البناء: `chmod +x build-render.sh && ./build-render.sh`
    - أمر البدء: `npm run start`
    - في قسم "Environment Variables"، أضف:
      - `NODE_ENV` = `production`
@@ -48,6 +48,14 @@ A comprehensive real estate website for Saudi properties with admin dashboard an
    - بعد إطلاق الخدمة بنجاح، قم بتشغيل أمر لتهيئة قاعدة البيانات:
    - انتقل إلى "Shell" في تفاصيل الخدمة الويب
    - قم بتنفيذ: `npm run db:push`
+
+## حل مشكلة "Could not resolve ../vite.config"
+
+تم إضافة حل متكامل لهذه المشكلة في الإصدار الحالي باستخدام:
+- ملف `build-render.sh` لضمان تجهيز البيئة بشكل صحيح
+- ملف `vite.config.cjs` للتوافق مع CommonJS
+- ملف `server/vite.fixed.ts` لتصحيح عملية الاستيراد
+- تأكد من استخدام أمر البناء المحدث: `chmod +x build-render.sh && ./build-render.sh`
 
 ## صلاحيات الإدارة
 
