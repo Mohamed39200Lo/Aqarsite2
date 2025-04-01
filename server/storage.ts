@@ -395,12 +395,15 @@ export class MemStorage implements IStorage {
       }
     ];
     
-    sampleTestimonials.forEach(testimonial => {
-      const newTestimonial = this.createTestimonial(testimonial);
+    sampleTestimonials.forEach(async testimonial => {
+      const newTestimonial = await this.createTestimonial(testimonial);
       // Approve all sample testimonials
-      this.approveTestimonial(newTestimonial.then(t => t.id));
+      this.approveTestimonial(newTestimonial.id);
     });
   }
 }
 
+// Create and export the appropriate storage implementation
+// If DATABASE_URL is available, use PostgreSQL storage (would need to be implemented)
+// Otherwise, fall back to in-memory storage
 export const storage = new MemStorage();
