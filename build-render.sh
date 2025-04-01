@@ -18,8 +18,14 @@ else
 // ESM to CommonJS conversion for compatibility with require()
 const path = require('path');
 
+// Import shadcn theme plugin for CommonJS
+const themePlugin = require("@replit/vite-plugin-shadcn-theme-json").default;
+
 const config = {
-  plugins: [require('@vitejs/plugin-react')()],
+  plugins: [
+    require('@vitejs/plugin-react')(),
+    themePlugin()
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "client", "src"),
@@ -162,9 +168,12 @@ cp -r attached_assets dist/ 2>/dev/null || true
 cp vite.config.js dist/
 cp vite.config.mjs dist/vite.config.js
 cp vite.config.cjs dist/
+# نسخ ملف theme.json للتأكد من أن الألوان ستظهر بشكل صحيح
+cp theme.json dist/
 # نسخ جميع صيغ vite.config إلى كل المجلدات المحتملة للتأكد من أن الاستيراد سيعمل
 mkdir -p dist/server
 cp vite.config.js dist/server/
 cp vite.config.cjs dist/server/
+cp theme.json dist/server/
 
 echo "تمت عملية البناء بنجاح!"
